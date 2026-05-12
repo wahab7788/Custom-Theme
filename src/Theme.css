@@ -65,6 +65,10 @@
   --font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
 }
 
+/* Apne main CSS file (index.css ya App.css) mein add karo */
+html {
+  zoom: 88%;
+}
 /* ========== GLOBAL STYLES ========== */
 * {
   margin: 0;
@@ -78,6 +82,7 @@ body {
   line-height: 1.5;
   color: var(--text);
   background-color: var(--gray-100);
+  
 }
 
 /* ========== TYPOGRAPHY ========== */
@@ -127,40 +132,62 @@ h6, .h6 { font-size: 1rem; font-weight: 500; margin-bottom: var(--spacing-2); }
 }
 
 /* ========== SIDEBAR ========== */
+/* Sidebar Container */
 .sidebar {
   position: fixed;
   left: 0;
   top: 0;
-  width: 260px;
   height: 100vh;
   background: linear-gradient(180deg, var(--white) 0%, var(--gray-100) 100%);
   box-shadow: var(--shadow-lg);
   overflow-y: auto;
+  overflow-x: hidden;
   z-index: 1000;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border-right: 1px solid var(--gray-200);
+  display: flex;
+  flex-direction: column;
 }
 
-/* Sidebar Scrollbar */
-.sidebar::-webkit-scrollbar { width: 4px; }
-.sidebar::-webkit-scrollbar-track { background: var(--gray-100); }
-.sidebar::-webkit-scrollbar-thumb { background: var(--gray-400); border-radius: 4px; }
-.sidebar::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+/* ✅ Stylish Custom Scrollbar */
+.sidebar::-webkit-scrollbar {
+  width: 5px;
+}
+.sidebar::-webkit-scrollbar-track {
+  background: var(--gray-200);
+  border-radius: 10px;
+  margin: 8px 0;
+}
+.sidebar::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark);
+  width: 7px;
+}
+/* Firefox */
+.sidebar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) var(--gray-200);
+}
 
-/* Sidebar States */
-.sidebar-closed { width: 70px; }
-.sidebar-closed .sidebar-header { padding: var(--spacing-4); justify-content: center; }
-.sidebar-closed .sidebar-logo { justify-content: center; }
-.sidebar-closed .sidebar-item { padding: var(--spacing-3); justify-content: center; }
-.sidebar-closed .sidebar-icon { margin: 0; }
-.sidebar-closed .sidebar-footer { justify-content: center; padding: var(--spacing-3); }
-.sidebar-open { width: 260px; }
+/* Width States */
+.sidebar-open { width: 280px; }
+.sidebar-closed { width: 75px; }
 
-/* Sidebar Header */
+/* Header */
 .sidebar-header {
   padding: var(--spacing-5) var(--spacing-6);
   border-bottom: 1px solid var(--gray-200);
   background: var(--white);
+  transition: all 0.3s ease;
+}
+.sidebar-closed .sidebar-header { 
+  padding: var(--spacing-4); 
+  display: flex;
+  justify-content: center;
 }
 
 .sidebar-logo {
@@ -173,6 +200,7 @@ h6, .h6 { font-size: 1rem; font-weight: 500; margin-bottom: var(--spacing-2); }
   gap: var(--spacing-2);
   transition: all 0.3s ease;
 }
+.sidebar-closed .sidebar-logo { justify-content: center; }
 .sidebar-logo:hover { transform: scale(1.02); }
 
 .logo-text {
@@ -184,10 +212,20 @@ h6, .h6 { font-size: 1rem; font-weight: 500; margin-bottom: var(--spacing-2); }
   font-weight: 700;
 }
 
-/* Sidebar Navigation */
-.sidebar-nav { padding: var(--spacing-3) 0; }
+/* Navigation */
+.sidebar-nav { 
+  padding: var(--spacing-3) 0;
+  flex: 1;
+}
 
-/* Sidebar Items */
+/* Bottom Menu */
+.sidebar-bottom {
+  padding: var(--spacing-3) 0;
+  border-top: 1px solid var(--gray-200);
+  margin-top: auto;
+}
+
+/* Single Menu Items */
 .sidebar-item {
   display: flex;
   align-items: center;
@@ -200,19 +238,24 @@ h6, .h6 { font-size: 1rem; font-weight: 500; margin-bottom: var(--spacing-2); }
   position: relative;
   margin: 4px 12px;
   border-radius: var(--radius);
+  white-space: nowrap;
+}
+.sidebar-closed .sidebar-item { 
+  padding: var(--spacing-3); 
+  justify-content: center;
+  margin: 4px 8px;
 }
 .sidebar-item:hover {
   background: linear-gradient(90deg, rgba(255, 107, 0, 0.1), transparent);
   color: var(--primary);
   transform: translateX(4px);
 }
+.sidebar-closed .sidebar-item:hover { transform: translateX(0); }
 
 .sidebar-active {
   background: linear-gradient(90deg, rgba(255, 107, 0, 0.15), transparent);
   color: var(--primary);
-  border-right: 3px solid var(--primary);
 }
-
 .sidebar-active::before {
   content: '';
   position: absolute;
@@ -224,6 +267,92 @@ h6, .h6 { font-size: 1rem; font-weight: 500; margin-bottom: var(--spacing-2); }
   border-radius: 0 3px 3px 0;
 }
 
+/* Parent Menu Items */
+.sidebar-item-parent {
+  position: relative;
+}
+.sidebar-item-parent-trigger {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-3) var(--spacing-6);
+  color: var(--text);
+  transition: all 0.25s ease;
+  font-size: 0.9rem;
+  position: relative;
+  margin: 4px 12px;
+  border-radius: var(--radius);
+  white-space: nowrap;
+  cursor: pointer;
+}
+.sidebar-closed .sidebar-item-parent-trigger {
+  padding: var(--spacing-3);
+  justify-content: center;
+  margin: 4px 8px;
+  cursor: default;
+}
+.sidebar-item-parent-trigger:hover {
+  background: linear-gradient(90deg, rgba(255, 107, 0, 0.1), transparent);
+  color: var(--primary);
+}
+.sidebar-active-parent {
+  background: linear-gradient(90deg, rgba(255, 107, 0, 0.1), transparent);
+  color: var(--primary);
+}
+.sidebar-arrow {
+  margin-left: auto;
+  transition: transform 0.2s;
+}
+
+/* ✅ Smooth Submenu Animation */
+.sidebar-submenu-wrapper {
+  overflow: hidden;
+  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+  max-height: 0;
+  opacity: 0;
+}
+.sidebar-submenu-wrapper.submenu-open {
+  max-height: 600px;
+  opacity: 1;
+}
+.sidebar-submenu {
+  margin-left: 48px;
+  padding: 4px 0;
+}
+.sidebar-closed .sidebar-submenu {
+  display: none;
+}
+
+.sidebar-submenu-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-2) var(--spacing-4);
+  color: var(--text-light);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  font-size: 0.8rem;
+  border-radius: var(--radius);
+  margin: 2px 8px;
+  white-space: nowrap;
+}
+.sidebar-submenu-item:hover {
+  color: var(--primary);
+  transform: translateX(4px);
+  background: linear-gradient(90deg, rgba(255, 107, 0, 0.05), transparent);
+}
+.sidebar-submenu-active {
+  color: var(--primary);
+  background: linear-gradient(90deg, rgba(255, 107, 0, 0.1), transparent);
+}
+
+.submenu-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+}
+
 .sidebar-icon {
   display: flex;
   align-items: center;
@@ -231,21 +360,28 @@ h6, .h6 { font-size: 1rem; font-weight: 500; margin-bottom: var(--spacing-2); }
   width: 24px;
   transition: transform 0.2s;
 }
-.sidebar-item:hover .sidebar-icon { transform: scale(1.1); }
+.sidebar-item:hover .sidebar-icon,
+.sidebar-item-parent-trigger:hover .sidebar-icon {
+  transform: scale(1.1);
+}
 
-.sidebar-label { transition: opacity 0.2s, transform 0.2s; }
+.sidebar-label { 
+  transition: opacity 0.2s, transform 0.2s;
+  white-space: nowrap;
+}
 
-/* Sidebar Footer */
+/* Footer */
 .sidebar-footer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
   padding: var(--spacing-4);
   border-top: 1px solid var(--gray-200);
   background: var(--white);
+  transition: all 0.3s ease;
 }
-
+.sidebar-closed .sidebar-footer { 
+  padding: var(--spacing-3); 
+  display: flex;
+  justify-content: center;
+}
 .sidebar-footer-content {
   display: flex;
   align-items: center;
@@ -256,14 +392,12 @@ h6, .h6 { font-size: 1rem; font-weight: 500; margin-bottom: var(--spacing-2); }
   color: white;
   justify-content: center;
 }
-
 .footer-text { font-size: 0.75rem; font-weight: 600; }
 
-/* Sidebar Toggle Button */
+/* Toggle Button */
 .sidebar-toggle-btn {
   position: fixed;
   bottom: 20px;
-  left: 270px;
   z-index: 1001;
   background: var(--primary);
   color: white;
@@ -275,13 +409,19 @@ h6, .h6 { font-size: 1rem; font-weight: 500; margin-bottom: var(--spacing-2); }
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: var(--shadow-md);
+  left: 290px;
 }
-.sidebar-closed + .sidebar-toggle-btn { left: 80px; }
-.sidebar-toggle-btn:hover { background: var(--primary-dark); transform: scale(1.05); }
+.sidebar-toggle-btn.toggle-closed {
+  left: 90px;
+}
+.sidebar-toggle-btn:hover {
+  background: var(--primary-dark);
+  transform: scale(1.05);
+}
 
-/* Mobile Menu Button */
+/* Mobile */
 .mobile-menu-btn {
   position: fixed;
   top: 16px;
@@ -303,7 +443,7 @@ h6, .h6 { font-size: 1rem; font-weight: 500; margin-bottom: var(--spacing-2); }
 .mobile-menu-btn:hover { background: var(--primary-dark); }
 .menu-icon { font-size: 24px; }
 
-/* Sidebar Overlay */
+/* Overlay */
 .sidebar-overlay {
   position: fixed;
   top: 0;
@@ -315,22 +455,11 @@ h6, .h6 { font-size: 1rem; font-weight: 500; margin-bottom: var(--spacing-2); }
   animation: fadeIn 0.3s ease;
 }
 
-/* Sidebar Animations */
+/* Animations */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
-
-@keyframes slideIn {
-  from { opacity: 0; transform: translateX(-20px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-
-.sidebar-item {
-  animation: slideIn 0.3s ease backwards;
-  animation-delay: calc(var(--item-index, 0) * 0.03s);
-}
-
 /* ========== NAVBAR ========== */
 .navbar {
   position: fixed;
@@ -888,26 +1017,65 @@ h6, .h6 { font-size: 1rem; font-weight: 500; margin-bottom: var(--spacing-2); }
   background: white;
 }
 
-/* Range Slider */
+/* Range Slider - Only Fill Orange */
 .form-range {
   width: 100%;
   height: 6px;
-  /* -webkit-appearance: none; */
-  background: var(--gray-300);
+  -webkit-appearance: none;
+  appearance: none;
+  background: #e9ecef;  /* Light gray background (empty part) */
   border-radius: 3px;
   outline: none;
 }
+
+/* Thumb (circle) - Orange */
 .form-range::-webkit-slider-thumb {
   -webkit-appearance: none;
   width: 18px;
   height: 18px;
   border-radius: 50%;
   background: var(--primary);
+  border: 2px solid var(--white);
+  box-shadow: 0 2px 6px rgba(255, 107, 0, 0.3);
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
+  margin-top: -6px;
+  position: relative;
+  z-index: 2;
 }
-.form-range::-webkit-slider-thumb:hover { transform: scale(1.2); background: var(--primary-dark); }
 
+.form-range::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  background: var(--primary-dark);
+}
+
+/* Track (the line) */
+.form-range::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 6px;
+  background: transparent;
+  border-radius: 3px;
+}
+
+/* Fill effect using JavaScript/React */
+.range-fill {
+  position: relative;
+  width: 100%;
+}
+
+.range-fill::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: var(--fill-width, 0%);
+  height: 6px;
+  background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+  border-radius: 3px;
+  pointer-events: none;
+  z-index: 1;
+}
 /* Switch Toggle */
 .switch {
   position: relative;
@@ -1260,5 +1428,46 @@ input:checked + .slider:before { transform: translateX(26px); }
 }
 
 
+/* ========== GLOBAL SCROLLBAR - ORANGE THEME ========== */
 
+/* For Webkit Browsers (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
 
+::-webkit-scrollbar-track {
+  background: var(--gray-200);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark);
+  width: 10px;
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) var(--gray-200);
+}
+
+/* Optional: For specific elements like modals, dropdowns */
+.modal-content::-webkit-scrollbar,
+.dropdown-menu::-webkit-scrollbar,
+.textarea::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-content::-webkit-scrollbar-thumb,
+.dropdown-menu::-webkit-scrollbar-thumb,
+.textarea::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  border-radius: 10px;
+}
