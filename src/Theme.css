@@ -65,7 +65,7 @@
   --font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
 }
 
-/* Apne main CSS file (index.css ya App.css) mein add karo */
+
 html {
   zoom: 88%;
 }
@@ -132,7 +132,6 @@ h6, .h6 { font-size: 1rem; font-weight: 500; margin-bottom: var(--spacing-2); }
 }
 
 /* ========== SIDEBAR ========== */
-/* Sidebar Container */
 .sidebar {
   position: fixed;
   left: 0;
