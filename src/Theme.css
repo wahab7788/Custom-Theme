@@ -201,7 +201,7 @@ h6,
   position: fixed;
   left: 0;
   top: 0;
-  height: 100vh;
+  height: 113vh;
   background: linear-gradient(180deg, var(--white) 0%, var(--gray-100) 100%);
   box-shadow: var(--shadow-lg);
   overflow-y: auto;
@@ -213,28 +213,71 @@ h6,
   flex-direction: column;
 }
 
-/* ✅ Stylish Custom Scrollbar */
-.sidebar::-webkit-scrollbar {
-  width: 5px;
+/* ========== GLOBAL SCROLLBAR - ORANGE THEME ========== */
+
+/* For Webkit Browsers (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
-.sidebar::-webkit-scrollbar-track {
-  background: var(--gray-200);
+
+::-webkit-scrollbar-track {
+  background: #edf2fa;
   border-radius: 10px;
-  margin: 8px 0;
 }
-.sidebar::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+
+::-webkit-scrollbar-thumb {
+  background: #ffaa66;  /* Light orange */
   border-radius: 10px;
   transition: all 0.3s ease;
 }
-.sidebar::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-dark);
-  width: 7px;
+
+/* Hover pe full orange */
+::-webkit-scrollbar-thumb:hover {
+  background: #ff8c00;  /* Pure orange on hover */
 }
-/* Firefox */
-.sidebar {
+
+/* ✅ Remove triangles from global scrollbar */
+::-webkit-scrollbar-button {
+  display: none !important;
+  height: 0 !important;
+  width: 0 !important;
+  background: transparent !important;
+}
+
+/* For Firefox */
+* {
   scrollbar-width: thin;
-  scrollbar-color: var(--primary) var(--gray-200);
+  scrollbar-color: #ffaa66 #edf2fa;
+}
+
+/* Optional: For specific elements like modals, dropdowns */
+.modal-content::-webkit-scrollbar,
+.dropdown-menu::-webkit-scrollbar,
+.textarea::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-content::-webkit-scrollbar-thumb,
+.dropdown-menu::-webkit-scrollbar-thumb,
+.textarea::-webkit-scrollbar-thumb {
+  background: #ffaa66;
+  border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover,
+.dropdown-menu::-webkit-scrollbar-thumb:hover,
+.textarea::-webkit-scrollbar-thumb:hover {
+  background: #ff8c00 !important;
+}
+
+/* ✅ Remove triangles from modal/dropdown scrollbars */
+.modal-content::-webkit-scrollbar-button,
+.dropdown-menu::-webkit-scrollbar-button,
+.textarea::-webkit-scrollbar-button {
+  display: none !important;
+  height: 0 !important;
+  width: 0 !important;
 }
 
 /* Width States */
@@ -1867,25 +1910,24 @@ input:checked + .slider:before {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--gray-200);
+  background: #edf2fa;
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  background: #ffaa66;
   border-radius: 10px;
   transition: all 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--primary-dark);
-  width: 10px;
 }
 
 /* For Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--primary) var(--gray-200);
+  scrollbar-color: #ffaa66 #edf2fa;
 }
 
 /* Optional: For specific elements like modals, dropdowns */
@@ -1898,6 +1940,12 @@ input:checked + .slider:before {
 .modal-content::-webkit-scrollbar-thumb,
 .dropdown-menu::-webkit-scrollbar-thumb,
 .textarea::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  background: linear-gradient(135deg, #ffaa66, #ffaa66);
   border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover,
+.dropdown-menu::-webkit-scrollbar-thumb:hover,
+.textarea::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark);
 }

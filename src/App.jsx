@@ -27,7 +27,7 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Loader show hoga pehle 2 seconds
+  
   if (loading) {
     return <Loader />;
   }

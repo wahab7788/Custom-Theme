@@ -1,4 +1,4 @@
-/* src/pages/Dashboard.css - Sirf Dashboard ke liye */
+/* src/pages/Dashboard.css - Complete Updated */
 
 .dashboard-container {
   max-width: 1600px;
@@ -34,44 +34,84 @@
   box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 
-/* Stats Grid */
+/* ========== STATS CARDS - MODERN & ATTRACTIVE ========== */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 20px;
-  margin-bottom: 30px;
+  gap: 24px;
+  margin-bottom: 32px;
 }
 
 @media (max-width: 1200px) {
   .stats-grid {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   }
 }
 
 .stat-card {
-  background: white;
-  border-radius: 28px;
-  padding: 18px 16px;
+  background: var(--white);
+  border-radius: 24px;
+  padding: 20px 18px;
   display: flex;
   align-items: center;
-  gap: 14px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03), 0 2px 4px rgba(0, 0, 0, 0.05);
-  transition: all 0.2s ease;
-  border: 1px solid rgba(0,0,0,0.03);
+  gap: 16px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 24px;
+  padding: 2px;
+  background: linear-gradient(135deg, transparent, var(--primary), transparent);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.stat-card:hover::before {
+  opacity: 1;
 }
 
 .stat-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 18px 30px -12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.15);
 }
 
 .stat-icon-wrapper {
-  width: 48px;
-  height: 48px;
-  border-radius: 24px;
+  width: 56px;
+  height: 56px;
+  border-radius: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  backdrop-filter: blur(4px);
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover .stat-icon-wrapper {
+  transform: scale(1.05) rotate(5deg);
+}
+
+.stat-icon-wrapper svg {
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover .stat-icon-wrapper svg {
+  transform: scale(1.1);
 }
 
 .stat-content {
@@ -81,21 +121,27 @@
 .stat-title {
   font-size: 13px;
   font-weight: 500;
-  color: #5b6e8c;
-  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #64748b;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .stat-value-row {
   display: flex;
   align-items: baseline;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 8px;
 }
 
 .stat-value {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 800;
   color: #0f172a;
+  line-height: 1.2;
 }
 
 .stat-trend {
@@ -103,19 +149,74 @@
   font-weight: 600;
   display: inline-flex;
   align-items: center;
-  gap: 3px;
-  padding: 2px 8px;
-  border-radius: 30px;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 50px;
+  backdrop-filter: blur(4px);
 }
 
 .stat-trend-up {
-  background: #e6f7ec;
-  color: #10b981;
+  background: linear-gradient(135deg, #e6f7ec, #d1fae5);
+  color: #059669;
 }
 
 .stat-trend-down {
-  background: #fee9e6;
-  color: #ef4444;
+  background: linear-gradient(135deg, #fee9e6, #fee2e2);
+  color: #dc2626;
+}
+
+/* Individual Card Variations */
+.stat-card:nth-child(1) {
+  background: linear-gradient(135deg, #ffffff 0%, #fffaf5 100%);
+}
+.stat-card:nth-child(1) .stat-icon-wrapper {
+  background: linear-gradient(135deg, rgba(255, 107, 0, 0.12), rgba(255, 107, 0, 0.05));
+}
+
+.stat-card:nth-child(2) {
+  background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
+}
+.stat-card:nth-child(2) .stat-icon-wrapper {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.12), rgba(34, 197, 94, 0.05));
+}
+
+.stat-card:nth-child(3) {
+  background: linear-gradient(135deg, #ffffff 0%, #fffbeb 100%);
+}
+.stat-card:nth-child(3) .stat-icon-wrapper {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(245, 158, 11, 0.05));
+}
+
+.stat-card:nth-child(4) {
+  background: linear-gradient(135deg, #ffffff 0%, #f5f3ff 100%);
+}
+.stat-card:nth-child(4) .stat-icon-wrapper {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.12), rgba(139, 92, 246, 0.05));
+}
+
+.stat-card:nth-child(5) {
+  background: linear-gradient(135deg, #ffffff 0%, #fdf2f8 100%);
+}
+.stat-card:nth-child(5) .stat-icon-wrapper {
+  background: linear-gradient(135deg, rgba(236, 72, 153, 0.12), rgba(236, 72, 153, 0.05));
+}
+
+.stat-card::after {
+  content: '';
+  position: absolute;
+  bottom: 12px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  background: radial-gradient(circle, rgba(255,107,0,0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover::after {
+  transform: scale(1.2);
+  background: radial-gradient(circle, rgba(255,107,0,0.12) 0%, transparent 70%);
 }
 
 /* Grid Layouts */
@@ -205,7 +306,6 @@
   margin-right: 6px;
 }
 
-/* Status Stats */
 .status-stats {
   display: flex;
   flex-wrap: wrap;
@@ -228,7 +328,6 @@
   align-items: center;
 }
 
-/* Top Items */
 .top-items-list {
   margin-top: 5px;
 }
@@ -283,7 +382,6 @@
   color: #1e293b;
 }
 
-/* Recent Orders */
 .recent-orders-list {
   display: flex;
   flex-direction: column;
@@ -323,7 +421,6 @@
   font-weight: 700;
 }
 
-/* Customer Table */
 .table-responsive-custom {
   overflow-x: auto;
 }
@@ -357,7 +454,6 @@
   font-weight: 500;
 }
 
-/* Right Stack */
 .right-stack {
   display: flex;
   flex-direction: column;
@@ -400,7 +496,6 @@
   margin-top: 4px;
 }
 
-/* Traffic & Promote */
 .traffic-promote-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -470,9 +565,27 @@
   transform: scale(1.02);
 }
 
-/* Responsive */
 @media (max-width: 900px) {
   .traffic-promote-row {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .stat-card {
+    padding: 16px;
+  }
+  
+  .stat-icon-wrapper {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .stat-value {
+    font-size: 22px;
+  }
+  
+  .stat-title {
+    font-size: 11px;
   }
 }

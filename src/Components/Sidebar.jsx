@@ -3,13 +3,12 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
    FiEdit, FiGrid, FiImage, FiList, FiBell, FiTag, 
-  FiNavigation, FiSmile, FiUser, FiSettings, FiLogOut, 
-  FiHelpCircle, FiStar, FiTrendingUp, FiPieChart, FiChevronLeft, 
+  FiNavigation, FiSmile,  FiStar, FiTrendingUp, FiPieChart, FiChevronLeft, 
   FiChevronRight, FiChevronDown, FiChevronUp, FiFileText, 
   FiCheckSquare, FiSliders, FiType, FiCalendar, FiUpload,
   FiHeart, FiThumbsUp,
 } from 'react-icons/fi';
-import { MdFastfood, MdRestaurantMenu, MdDashboard } from 'react-icons/md';
+import { MdFastfood, MdDashboard } from 'react-icons/md';
 
 const Sidebar = () => {
   const location = useLocation();
@@ -118,13 +117,13 @@ const Sidebar = () => {
     ]
   };
 
-  // Bottom Menu Items
-  const bottomMenuItems = [
-    { path: '/profile', label: 'Profile', icon: <FiUser size={20} />, isSingle: true },
-    { path: '/settings', label: 'Settings', icon: <FiSettings size={20} />, isSingle: true },
-    { path: '/help', label: 'Help', icon: <FiHelpCircle size={20} />, isSingle: true },
-    { path: '/logout', label: 'Logout', icon: <FiLogOut size={20} />, isSingle: true },
-  ];
+  // // Bottom Menu Items
+  // const bottomMenuItems = [
+  //   { path: '/profile', label: 'Profile', icon: <FiUser size={20} />, isSingle: true },
+  //   { path: '/settings', label: 'Settings', icon: <FiSettings size={20} />, isSingle: true },
+  //   { path: '/help', label: 'Help', icon: <FiHelpCircle size={20} />, isSingle: true },
+  //   { path: '/logout', label: 'Logout', icon: <FiLogOut size={20} />, isSingle: true },
+  // ];
 
   // Render Menu Item (Single)
   const renderSingleMenuItem = (item) => (
@@ -230,18 +229,18 @@ const Sidebar = () => {
         </div>
 
         {/* Bottom Menu */}
-        <div className="sidebar-bottom">
+        {/* <div className="sidebar-bottom">
           {bottomMenuItems.map((item) => renderSingleMenuItem(item))}
-        </div>
+        </div> */}
 
-        <div className="sidebar-footer">
+        {/* <div className="sidebar-footer">
           {isOpen && (
             <div className="sidebar-footer-content">
               <MdRestaurantMenu size={20} />
               <span className="footer-text">Premium</span>
             </div>
           )}
-        </div>
+        </div> */}
       </div>
 
       {/* Overlay for mobile */}
